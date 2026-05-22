@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+}
+
+button,
+input {
+  font: inherit;
+}
