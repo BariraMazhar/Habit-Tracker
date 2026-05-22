@@ -46,23 +46,7 @@ function isSameDay(a, b) {
   return toDateKey(a) === toDateKey(b);
 }
 
-function calculateStreak(completions) {
-  const completedDates = Object.keys(completions || {})
-    .filter((key) => completions[key])
-    .sort();
 
-  if (completedDates.length === 0) return 0;
-
-  let cursor = new Date(completedDates[completedDates.length - 1]);
-  let streak = 0;
-
-  while (completions[toDateKey(cursor)]) {
-    streak++;
-    cursor = addDays(cursor, -1);
-  }
-
-  return streak;
-}
 
 const initialState = {
   habits: [],
@@ -207,15 +191,7 @@ function App() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 px-5 py-4 shadow-xl">
-            <p className="text-sm text-slate-400">This week</p>
-            <p className="mt-1 text-2xl font-semibold text-white">
-              {completionStats.done}
-              <span className="text-base text-slate-500">
-                /{completionStats.total || 0}
-              </span>
-            </p>
-          </div>
+          
         </header>
 
         <section className="mb-6 rounded-3xl border border-slate-800 bg-slate-900/80 p-4 shadow-2xl">
@@ -348,9 +324,7 @@ function HabitGrid({ habits, weekDays, today, dispatch }) {
               );
             })}
 
-            <div className="px-5 py-4 text-right text-sm font-semibold text-slate-300">
-              Streak
-            </div>
+           
           </div>
 
           {habits.map((habit) => (
@@ -371,7 +345,7 @@ function HabitGrid({ habits, weekDays, today, dispatch }) {
 function HabitRow({ habit, weekDays, today, dispatch }) {
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(habit.name);
-  const streak = calculateStreak(habit.completions);
+  // const streak = calculateStreak(habit.completions);
 
   function saveRename() {
     if (!draftName.trim()) {
@@ -477,14 +451,7 @@ function HabitRow({ habit, weekDays, today, dispatch }) {
         );
       })}
 
-      <div className="flex min-h-16 items-center justify-end px-5">
-        <span
-          aria-label={`${streak} day streak for ${habit.name}`}
-          className="rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1 text-sm font-semibold text-orange-200"
-        >
-          🔥 {streak}
-        </span>
-      </div>
+     
     </div>
   );
 }
